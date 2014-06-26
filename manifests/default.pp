@@ -27,7 +27,7 @@ class { 'postgresql::server::contrib':
   package_ensure => 'present',
 }
 
-# Creates odoo user for postgresql login
+# Creates vagrant user for postgresql login
 postgresql::server::role { 'vagrant':
   password_hash => postgresql_password('vagrant', 'vagrant'),
   createdb => true,
@@ -35,12 +35,30 @@ postgresql::server::role { 'vagrant':
   replication => true,
 }
 
+# Creates PLCLogger user for postgresql login
+postgresql::server::role { 'PLCLogger':
+  password_hash => postgresql_password('plclogger', 'plclogger'),
+  createdb => true,
+  login => true,
+  replication => true,
+}
+
 # Adds odoo user to pg_hba.conf rules
-postgresql::server::pg_hba_rule { 'allow odoo framework to access app database':
+postgresql::server::pg_hba_rule { 'vagrant':
   description => "Allows md5 authentication to user vagrant",
   type => 'host',
   address => '0.0.0.0/0',
   database => 'all',
   user => 'vagrant',
+  auth_method => 'md5',
+}
+
+# Adds odoo user to pg_hba.conf rules
+postgresql::server::pg_hba_rule { 'PLCLogger':
+  description => "Allows md5 authentication to user vagrant",
+  type => 'host',
+  address => '0.0.0.0/0',
+  database => 'all',
+  user => 'PLCLogger',
   auth_method => 'md5',
 }

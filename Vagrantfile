@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 5432, host: 5432
   config.vm.network "forwarded_port", guest: 4200, host: 4200
 
-  config.vm.provision :shell, :path => "manifests/default.sh"
+  # config.vm.provision :shell, :path => "manifests/default.sh"
 
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = "manifests"
