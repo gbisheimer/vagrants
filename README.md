@@ -1,5 +1,5 @@
-vagrant
-=======
+vagrants
+========
 
 Definición de una máquina virtual Vagrant para uso general
 
