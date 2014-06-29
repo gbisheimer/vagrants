@@ -24,20 +24,9 @@ class { 'postgresql::server::contrib':
   package_ensure => 'present',
 }
 
-#****************************************************************
-# Vagrant
-#****************************************************************postgresql::server::role { 'vagrant':
+postgresql::server::role { 'vagrant':
   password_hash => postgresql_password('vagrant', 'vagrant'),
   createdb => true,
   login => true,
   replication => true,
-}
-
-postgresql::server::pg_hba_rule { 'vagrant':
-  description => "Allows md5 authentication to user vagrant",
-  type => 'host',
-  address => '0.0.0.0/0',
-  database => 'all',
-  user => 'vagrant',
-  auth_method => 'md5',
 }
